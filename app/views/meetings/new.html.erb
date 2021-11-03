@@ -1,0 +1,12 @@
+<div class='wrapper'>
+  <%= render(:partial => 'navbar', :locals => {:is_logged_in => true}) %>
+  <div class='container'>
+
+    <h1>New Meeting</h1>
+
+    <%= render 'form', meeting: @meeting %>
+
+    <%= link_to 'Back', meetings_path, :class => 'underline' %>
+
+  </div>
+</div>

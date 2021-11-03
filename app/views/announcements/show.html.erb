@@ -1,14 +1,12 @@
-<p id="notice"><%= notice %></p>
+<div class='wrapper'>
+  <%= render(:partial => 'navbar', :locals => {:is_logged_in => true}) %>
+  <div class='container'>
+        <%= link_to('<< back home', announcements_path, :class => 'back-link', class: 'button1') %>
+        <center>
 
-<p>
-  <strong>Title:</strong>
-  <%= @announcement.title %>
-</p>
+        <h2>nothing to see here!</h2>
 
-<p>
-  <strong>Message:</strong>
-  <%= @announcement.message %>
-</p>
+        </center>
 
-<%= link_to 'Edit', edit_announcement_path(@announcement) %> |
-<%= link_to 'Back', announcements_path %>
+    </div>
+</div>  

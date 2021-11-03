@@ -1,0 +1,30 @@
+<%= form_with(model: join) do |form| %>
+  <% if join.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(join.errors.count, "error") %> prohibited this join from being saved:</h2>
+
+      <ul>
+        <% join.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  
+  <% @member = Member.find(@member_id.to_i) %>
+  <%= form.hidden_field :member_id, :value => @member.id %>
+  <% @meeting = Meeting.find(@meeting_id.to_i) %>
+  <%= form.hidden_field :meeting_id, :value => @meeting.id %>
+  
+  <p>
+  Name:
+  <%= @member.name %>
+  Meeting Date:
+  <%= @meeting.date %>
+  </p>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

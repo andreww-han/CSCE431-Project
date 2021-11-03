@@ -1,0 +1,11 @@
+<div class='wrapper'>
+  <%= render(:partial => 'navbar', :locals => {:is_logged_in => true}) %>
+  <div class='container'>
+        <h1>Editing Post</h1>
+
+        <%= render 'form', post: @post %>
+
+        <%= link_to 'Show', @post %> |
+        <%= link_to 'Back', posts_path %>
+    </div>
+</div>

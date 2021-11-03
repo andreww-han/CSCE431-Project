@@ -1,0 +1,29 @@
+<div class='wrapper'>
+  <%= render(:partial => 'navbar', :locals => {:is_logged_in => true}) %>
+  <div class='container'>
+    <p id="notice"><%= notice %></p>
+
+    <p>
+      <strong>Name:</strong>
+      <%= @member.name %>
+    </p>
+
+    <p>
+      <strong>Points:</strong>
+      <%= @member.totalPoints %>
+    </p>
+
+    <p>
+      <strong>Admin:</strong>
+      <%= @member.isAdmin %>
+    </p>
+
+    <p>
+      <strong>Owner:</strong>
+      <%= @member.isOwner %>
+    </p>
+
+    <%= link_to 'Edit', edit_member_path(@member) %> |
+    <%= link_to 'Back', members_path %>
+  </div>
+</div>

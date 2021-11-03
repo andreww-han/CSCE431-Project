@@ -1,0 +1,26 @@
+<div class='wrapper'>
+  <%= render(:partial => 'navbar', :locals => {:is_logged_in => true}) %>
+  <div class='container'>
+
+    <%= link_to('<< back home', announcements_path, :class => 'back-link', class: 'underline') %>
+    <center>
+
+    <h1>Delete Announcement</h1>
+
+    <%= form_for(@announcement, :method => 'delete') do |f| %>
+    <p>Are you sure you want to delete the following announcement?</p>
+    <br>
+    <div class='box'>
+      <b><%= @announcement.title %></b>
+      <br>
+      <p><%= @announcement.message %></p>
+    </div>
+    <br>
+    <br>
+
+    <%= f.submit('Confirm Delete') %>
+    <% end %>
+    </center>
+
+  </div>
+</div>

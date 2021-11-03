@@ -1,0 +1,54 @@
+<div class='wrapper'>
+  <%= render(:partial => 'navbar', :locals => {:is_logged_in => true}) %>
+  <div class='container'>
+    <p id="notice"><%= notice %></p>
+
+    <p>
+      <strong>By:</strong>
+      <% @user = Member.find(@post.member_id) %>
+      <%= @user.name %>
+    </p>
+
+    <p>
+      <strong>Title:</strong>
+      <%= @post.title %>
+    </p>
+    <p>
+      <strong>Body:</strong>
+      <%= @post.body %>
+    </p>
+    <p>
+      <strong>Likes:</strong>
+      <%= @post.likes %>
+    </p>
+    <p>
+      <strong>Liked by:</strong>
+    </p>
+
+    <% @likes = Like.where(post_id: @post.id) %>
+    <% if (@likes != nil) %>
+      <% @likes.each do |like| %>
+        <% @member = Member.find(like.member_id) %>
+        <%= @member.name %>
+        <br> 
+      <% end %>  
+    <% end %>
+
+    <% @member_id = Member.where(uid: current_admin.uid).first().id %>
+
+    <% if @member_id == @post.member_id %>
+      <%= link_to 'Edit', edit_post_path(@post) %> |
+    <% end %>
+    <%= link_to 'Back', posts_path %> |
+
+    
+    <% if(Like.exists?(:member_id => @member_id, :post_id => @post.id)) %>
+      <% @like = Like.find_by(member_id: @member_id, post_id: @post.id) %>
+      <%= link_to("Un-like This Post", delete_like_path(@like, :post_id => @post.id, :member_id => @member_id), data: { confirm: 'Are you sure?' }) %>
+    <% else %>
+      <%= link_to("Like This Post", likes_path(:like => @like, :post_id => @post.id, :member_id => @member_id), method: :create) %>
+    <% end %>
+
+
+  </div>
+</div>

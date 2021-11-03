@@ -1,29 +1,38 @@
-<p id="notice"><%= notice %></p>
+<div class='wrapper'>
+  <%= render(:partial => 'navbar', :locals => {:is_logged_in => true}) %>
+  <div class='container'>
 
-<h1>Announcements</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Message</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @announcements.each do |announcement| %>
-      <tr>
-        <td><%= announcement.title %></td>
-        <td><%= announcement.message %></td>
-        <td><%= link_to 'Show', announcement %></td>
-        <td><%= link_to 'Edit', edit_announcement_path(announcement) %></td>
-        <td><%= link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <h1>Announcements</h1>
+    <br>
+    <% if @is_admin %>
+  
+      <br><br>
+      <b><h3>New Announcement</h3></b>
+      <% if @error %>
+        <p><b><%= @error %></b></p>
+      <% end %>
+      <center>
+        <%= form_for(@announcement) do |f| %>
+          <%= render(:partial => 'form', :locals => {:f => f}) %>
+          <%= f.submit('Post') %>
+        <% end %>
+      </center>
+      <br>
     <% end %>
-  </tbody>
-</table>
 
-<br>
+    <% @announcements.each do |announcement| %>
+      <div class='box'>
+        <b><%= announcement.title %></b>
+        <br>
+        <p><%= announcement.message %></p>
+        <% if @is_admin %>
+          <br>
+          <%= link_to('edit', edit_announcement_path(announcement), :class => 'action edit', :class => 'underline') %>
+          <%= link_to('delete', delete_announcement_path(announcement), :class => 'action delete', :class => 'underline') %>
+        <% end %>
+      </div>
+      <br>
+    <% end %>
 
-<%= link_to 'New Announcement', new_announcement_path %>
+  </div>
+</div>

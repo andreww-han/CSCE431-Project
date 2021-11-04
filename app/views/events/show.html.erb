@@ -28,6 +28,28 @@
       <%= @activity.name %>
     </p>
 
+    <p>
+    <strong>Attendance: </strong>
+    <% if MemberPoint.exists?(:event_id => @event.id) == true %>
+      <%= MemberPoint.where(event_id: @event.id).pluck('DISTINCT member_id').count %>
+    <% else %>
+      0
+    <% end %>
+
+  </p>
+
+  <p>
+    <strong>Attendees:</strong>
+    <% if MemberPoint.exists?(:event_id => @event.id) == true %>
+      <% @memberpoints = MemberPoint.where(:event_id => @event.id) %>
+      <% @memberpoints.each do |memberpoint| %>
+        <% @member = Member.find(memberpoint.member_id) %>
+        <%= @member.name %>
+        <br>
+      <% end %>
+    <% end %>
+  </p>
+
     <% @member_id = Member.where(uid: current_admin.uid).first().id %>
 
     <% if (MemberPoint.exists?(:member_id => @member_id, :event_id => @event.id) == false && @event.status == true) %>

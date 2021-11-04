@@ -1,0 +1,27 @@
+<%= form_with(model: member_point) do |form| %>
+  <% if member_point.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(member_point.errors.count, "error") %> prohibited this member_point from being saved:</h2>
+
+      <ul>
+        <% member_point.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.date_select :date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :points %>
+    <%= form.number_field :points %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

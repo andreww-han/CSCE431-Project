@@ -1,0 +1,19 @@
+<div class='wrapper'>
+  <%= render(:partial => 'navbar', :locals => {:is_logged_in => true}) %>
+  <div class='container'>
+    <p>
+      <strong>Name:</strong>
+      <%= @activity.name %>
+    </p>
+
+    <p>
+      <strong>Points:</strong>
+      <%= @activity.num_points %>
+    </p>
+
+    <%= link_to 'Edit', edit_activity_path(@activity) %> |
+    <%= link_to 'Back', activities_path %>
+
+  </div>
+</div>
+

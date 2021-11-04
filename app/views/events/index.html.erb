@@ -10,7 +10,8 @@
         <tr>
           <th>Name</th>
           <th>Date</th>
-          <th>Status</th>
+          <th>Active</th>
+          <th>Activity Type</th>
           <th colspan="3"></th>
         </tr>
       </thead>
@@ -20,7 +21,13 @@
           <tr>
             <td><%= event.name %></td>
             <td><%= event.date %></td>
-            <td><%= event.status %></td>
+            <% if event.status == true %>
+              <td> Yes </td>
+            <% else %>
+              <td> No </td>
+            <% end %>
+            <% @activity = Activity.find(event.activity_id) %>
+            <td><%= @activity.name %></td>
             <td><%= link_to 'Show', event %></td>
             <br>
             <% if @is_admin %>

@@ -1,0 +1,2 @@
+class MemberPoint < ApplicationRecord
+end

@@ -1,0 +1,11 @@
+<div class='wrapper'>
+  <%= render(:partial => 'navbar', :locals => {:is_logged_in => true}) %>
+  <div class='container'>
+    <h1>New Activity</h1>
+
+    <%= render 'form', activity: @activity %>
+
+    <%= link_to 'Back', activities_path %>
+
+    </div>
+</div>

@@ -14,7 +14,7 @@ class PostsController < ApplicationController
         @is_admin = false
       end
     end
-
+    
     @posts = Post.all
   end
 

@@ -125,6 +125,16 @@
    font-weight: 300;
  }
 
+ input[type="checkbox" i] {
+  background-color: initial;
+  cursor: default;
+  appearance: auto;
+  box-sizing: border-box;
+  padding: initial;
+  border: initial;
+  
+}
+
  form input:hover, form textarea:hover, form select:hover {
    background-color: rgba(255, 255, 255, 0.4);
  }

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  resources :member_points
+  resources :activities
   resources :posts
 
   resources :likes do

@@ -23,8 +23,13 @@
   </div>
 
   <div class="field">
-    <%= form.label :status %>
+    <%= form.label :status, "Active" %>
     <%= form.check_box :status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :activity %>
+    <%= form.select :activity_id, Activity.all.collect {|x| [x.name, x.id]}, {}, class: "multiple" %>
   </div>
 
   <div class="actions">

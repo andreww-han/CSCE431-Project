@@ -13,16 +13,12 @@ class PostsController < ApplicationController
 
     end
 
-    @post_likes = Like.where(post_id: @post).pluck('DISTINCT member_id').count
-    Post.update(@post, :likes => @post_likes)
     @posts = Post.order('created_at DESC')
 
   end
 
   # GET /posts/1 or /posts/1.json
   def show
-    @post_likes = Like.where(post_id: @post).pluck('DISTINCT member_id').count
-    Post.update(@post, :likes => @post_likes)
   end
 
   # GET /posts/new

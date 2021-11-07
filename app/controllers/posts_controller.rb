@@ -18,6 +18,8 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
+    @post_likes = Like.where(post_id: @post_id).pluck('DISTINCT member_id').count
+    Post.update(@post_id, :likes => @post_likes)
   end
 
   # GET /posts/new

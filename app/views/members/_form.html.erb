@@ -17,11 +17,18 @@
     <%= form.text_field :name %>
   </div>
 
-  <%= form.hidden_field :email, :value => current_admin.email %>
-  <%= form.hidden_field :uid, :value => current_admin.uid %>
+
+  <%= form.hidden_field :email, :value => member.email %>
+  <%= form.hidden_field :uid, :value => member.uid %>
 
   <% @member = Member.find_by(uid: current_admin.uid) %>
   <% if @member != nil %>
+    <% if @member.isAdmin == true %>
+      <div class="field">
+        <%= form.label :'Member Points' %>
+        <%= form.number_field(:totalPoints) %>
+      </div>
+    <% end %>
     <% if @member.isOwner == true %>
       <div class="field">
       <%= form.label :'Give admin privileges?' %>
@@ -32,10 +39,6 @@
         <%= form.label :'Give owner privileges?' %>
         <br>
         <%= form.select :isOwner, [false, true]%>
-      </div>
-      <div class="field">
-        <%= form.label :'Member Points' %>
-        <%= form.number_field(:totalPoints) %>
       </div>
     <% end %>
   <% end %>

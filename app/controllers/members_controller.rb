@@ -4,11 +4,7 @@ class MembersController < ApplicationController
       
       @current_member = Member.where(uid: current_admin.uid).first()
 
-      if @current_member.isAdmin == true
-        @is_admin = true
-      else
-        @is_admin = false
-      end
+      @is_admin = @current_member.isAdmin
 
       if @is_admin
         @member = Member.new
@@ -43,6 +39,7 @@ class MembersController < ApplicationController
     end
 
     def edit
+      @current_member = Member.where(uid: current_admin.uid).first()
       @member = Member.find(params[:id])
     end
 

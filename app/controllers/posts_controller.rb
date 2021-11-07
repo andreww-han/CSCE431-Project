@@ -8,14 +8,12 @@ class PostsController < ApplicationController
     else
       @current_member = Member.where(uid: current_admin.uid).first()
 
-      if @current_member.isAdmin == true
-        @is_admin = true
-      else
-        @is_admin = false
-      end
+      @is_admin = @current_member.isAdmin
+
     end
     
-    @posts = Post.all
+    @posts = @posts = Post.order('created_at DESC')
+
   end
 
   # GET /posts/1 or /posts/1.json
@@ -34,7 +32,6 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
-    @post.save
 
     respond_to do |format|
       if @post.save

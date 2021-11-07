@@ -6,11 +6,7 @@ class EventsController < ApplicationController
 
     @current_member = Member.where(uid: current_admin.uid).first()
 
-    if @current_member.isAdmin == true
-      @is_admin = true
-    else
-      @is_admin = false
-    end
+    @is_admin = @current_member.isAdmin
 
     @events = Event.all
 

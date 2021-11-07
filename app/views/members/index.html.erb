@@ -5,7 +5,6 @@
     <p id="notice"><%= notice %></p>
 
     <h1>Members</h1>
-    <%= link_to("To Home Page", {:controller => 'announcements', :action=>'index'}, :class => 'underline')%>
 
     <table>
       <thead>
@@ -13,8 +12,8 @@
           <th>Name</th>
           <th>Points</th>
           <th>Email</th>
-          <th>Admin</th>
-          <th>Owner</th>
+          <th>Admin?</th>
+          <th>Owner?</th>
           <th colspan="3"></th>
         </tr>
       </thead>
@@ -25,19 +24,19 @@
             <td><%= member.name %></td>
             <td><%= member.totalPoints %></td>
             <td><%= member.email %></td>
-            <% if member.isAdmin == true %>
+            <% if member.isAdmin %>
               <td> Yes </td>
             <% else %>
               <td> No </td>
             <% end %>
-            <% if member.isOwner == true %>
+            <% if member.isOwner %>
               <td> Yes </td>
             <% else %>
               <td> No </td>
             <% end %>
-            <td><%= link_to 'View Bio Page', member, :class => 'underline' %></td>
+            <td><%= link_to 'View Bio', member, :class => 'underline' %></td>
             <br>
-            <% if @is_admin %>
+            <% if @is_admin or member.uid == @current_member.uid %>
               <td><%= link_to 'Edit', edit_member_path(member), :class => 'underline' %></td>
               <td><%= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'underline' %></td>
             <% end %>

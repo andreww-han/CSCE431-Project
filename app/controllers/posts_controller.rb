@@ -1,8 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
 
-  @post_likes = Like.where(post_id: @post).pluck('DISTINCT member_id').count
-  Post.update(@post, :likes => @post_likes)
 
   # GET /posts or /posts.json
   def index
@@ -14,13 +12,17 @@ class PostsController < ApplicationController
       @is_admin = @current_member.isAdmin
 
     end
-    
+
+    @post_likes = Like.where(post_id: @post).pluck('DISTINCT member_id').count
+    Post.update(@post, :likes => @post_likes)
     @posts = Post.order('created_at DESC')
 
   end
 
   # GET /posts/1 or /posts/1.json
   def show
+    @post_likes = Like.where(post_id: @post).pluck('DISTINCT member_id').count
+    Post.update(@post, :likes => @post_likes)
   end
 
   # GET /posts/new

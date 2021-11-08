@@ -1,0 +1,16 @@
+<div class='wrapper'>
+  <%= render(:partial => 'navbar', :locals => {:is_logged_in => true}) %>
+  <div class='container'>
+
+<h1>New Bio</h1>
+
+<% @member = Member.find(@bio.member_id) %>
+<% if current_admin.uid == @member.uid %>
+  <%= render 'form', bio: @bio %>
+<% else %> 
+  <% members_controller.redirect_to members_path %>
+<% end %>
+
+<%= link_to 'Back', bios_path %>
+</div>
+</div>

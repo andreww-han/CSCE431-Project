@@ -6,6 +6,9 @@ class MembersController < ApplicationController
 
       @is_admin = @current_member.isAdmin
 
+      @posts = Post.all
+      @bios = Bio.all
+
       if @is_admin
         @member = Member.new
       end
@@ -36,6 +39,8 @@ class MembersController < ApplicationController
 
     def show
       @member = Member.find(params[:id])
+      @posts = Post.all
+      @bios = Bio.all
     end
 
     def edit

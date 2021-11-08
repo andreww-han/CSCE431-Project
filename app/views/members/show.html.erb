@@ -53,7 +53,8 @@
       <tbody>
 
         <% @member_id = Member.where(uid: current_admin.uid).first().id %>
-        <% Post.where(member_id: @member_id).find_each do |post| %>
+        <% @memberpage_id = Member.where(uid: @member.uid).first().id %>
+        <% Post.where(member_id: @memberpage_id).find_each do |post| %>
 
           <tr>
             <td><%= post.title %></td>

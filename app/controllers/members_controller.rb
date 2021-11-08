@@ -27,6 +27,8 @@ class MembersController < ApplicationController
       end
 
       if @member.save
+        Member.update(@member, :email => current_admin.email)
+        Member.update(@member, :uid => current_admin.uid)
         @flash_notice = 'Member added successfully.'
         redirect_to(members_path, notice: @flash_notice)
       else

@@ -17,10 +17,6 @@
     <%= form.text_field :name %>
   </div>
 
-
-  <%= form.hidden_field :email, :value => member.email %>
-  <%= form.hidden_field :uid, :value => member.uid %>
-
   <% @member = Member.find_by(uid: current_admin.uid) %>
   <% if @member != nil %>
     <% if @member.isAdmin == true %>

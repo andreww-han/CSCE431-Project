@@ -1,0 +1,32 @@
+<div class='wrapper'>
+  <%= render(:partial => 'navbar', :locals => {:is_logged_in => true}) %>
+  <div class='container'>
+
+<%= form_with(model: bio) do |form| %>
+  <% if bio.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(bio.errors.count, "error") %> prohibited this bio from being saved:</h2>
+
+      <ul>
+        <% bio.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+  </div>
+
+  <% @member_id = Member.where(uid: current_admin.uid).first() %>
+  <%= form.hidden_field :member_id, :value => @member_id.id %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+</div>
+</div>

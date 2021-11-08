@@ -1,0 +1,23 @@
+<div class="nav">
+  <input type="checkbox" id="nav-check">
+  <div class="nav-btn">
+    <label for="nav-check">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+  </div>
+
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/announcements">Announcements</a>
+    <a href="/members">Members</a>
+    <a href="/events">Events</a>
+    <a href="/posts">Posts</a>
+    <% if is_logged_in %>
+    <%= link_to "Sign Out", destroy_admin_session_path %>
+    <% else %>
+    <%= link_to "Sign In", admin_google_oauth2_omniauth_authorize_path %>
+    <% end %>
+  </div>
+</div>

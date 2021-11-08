@@ -48,7 +48,45 @@ RSpec.describe MemberPoint, type: :model do
 	end
 end	
 
-		
+RSpec.describe Like, type: :model do
+	context 'likes unit tests' do
+		it 'check post_id only' do
+			@member = Member.create(name: 'Andrew')
+			@post = Post.create(title: 'test', body: 'test', member_id: @member.id)
+			like = Like.new(post_id: @post.id).save
+			expect(like).to eq(false)
+		end
+		it 'check member_id only' do
+			@member = Member.create(name: 'Jack')
+			like = Like.new(member_id: @member.id).save
+			expect(like).to eq(false)
+		end
+		it 'check valid input' do
+			@member = Member.create(name: 'Andrew')
+			@post = Post.create(title: 'test', body: 'test', member_id: @member.id)
+			like = Like.new(post_id: @post.id, member_id: @member.id).save
+			expect(like).to eq(true)
+		end
+	end
+end
+
+Rspec.describe Activity, type: :model do
+	context 'activities unit tests' do
+		it 'check name only' do
+			activity = Activity.new(name: 'Meeting').save
+			expect(activity).to eq(false)
+		end
+		it 'check points only' do
+			activity = Activity.new(points: '15').save
+			expect(activity).to eq(false)
+		end
+		it 'check valid input' do
+			activity = Activity.new(name: 'Meeting', points: '15').save
+			expect(activity).to eq(true)
+		end
+	end
+end
+
 
 #	subject do
 #		described_class.new(title: 'Foundation')

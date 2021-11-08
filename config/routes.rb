@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :member_points
   resources :activities
   resources :posts
+  resources :bios
 
   resources :likes do
     member do
@@ -38,7 +39,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :members
+  resources :members do
+    resources :bios
+  end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

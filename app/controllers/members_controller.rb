@@ -18,6 +18,8 @@ class MembersController < ApplicationController
 
     def create
       @member = Member.new(member_params)
+      Member.update(@member, :email => current_admin.email)
+      Member.update(@member, :uid => current_admin.uid)
 
       # we make sure that all fields have been filled in order to prevent any errors later on:
       unless verify(@member)
@@ -27,8 +29,6 @@ class MembersController < ApplicationController
       end
 
       if @member.save
-        Member.update(@member, :email => current_admin.email)
-        Member.update(@member, :uid => current_admin.uid)
         @flash_notice = 'Member added successfully.'
         redirect_to(members_path, notice: @flash_notice)
       else

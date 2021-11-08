@@ -24,8 +24,7 @@
             <td><%= post.body %></td>
             <% @user = Member.find(post.member_id) %>
             <td><%= @user.name %></td>
-            <% @like_count = Like.where(post_id: @post_id).pluck('DISTINCT member_id').count %>
-            <td><%= @like_count %></td>
+            <td><%= post.numlikes %></td>
 
             <td><%= link_to 'Show', post %></td>
 

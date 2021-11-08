@@ -18,11 +18,9 @@
       <%= @post.body %>
     </p>
 
-    <% @like_count = Like.where(post_id: @post_id).pluck('DISTINCT member_id').count %>
-
     <p>
       <strong>Likes:</strong>
-      <%= @like_count %>
+      <%= @post.numlikes %>
     </p>
     <p>
       <strong>Liked by:</strong>

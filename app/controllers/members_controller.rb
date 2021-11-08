@@ -17,8 +17,6 @@ class MembersController < ApplicationController
     end
 
     def create
-      params[:uid] = current_admin.uid
-      params[:email] = current_admin.email
       @member = Member.new(member_params)
 
       # we make sure that all fields have been filled in order to prevent any errors later on:

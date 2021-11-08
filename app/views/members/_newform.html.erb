@@ -1,0 +1,26 @@
+
+<%= form_with(model: member) do |form| %>
+  <% if member.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(member.errors.count, "error") %> prohibited this member from being saved:</h2>
+
+      <ul>
+        <% member.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  
+  <%= form.hidden_field :uid, :value => current_admin.uid %>
+  <%= form.hidden_field :email, :value => current_admin.email %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

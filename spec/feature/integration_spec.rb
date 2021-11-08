@@ -58,30 +58,12 @@ end
 
 RSpec.describe 'test likes', type: :feature do
 	scenario 'valid inputs'do
-		visit new_member_path
-		fill_in 'member_name', with: 'Andrew'
-		click_on 'Create Member'
-		visit new_post_path
-		fill_in 'title', with: 'test'
-		fill_in 'body', with: 'this is a test'
-		click_on 'Create Post'
 		visit new_like_path
 		fill_in 'member_id', with: '1'
 		fill_in 'post_id', with: '1'
 		click_on 'Create Like'
-		visit post_path
+		visit likes_path
 		expect(page).to have_content('1')
-	end
-end
-
-RSpec.describe 'test activities', type: :feature do
-	scenario 'valid inputs' do
-		visit new_activity_path
-		fill_in 'name', with: 'Meeting'
-		fill_in 'points', with: '10'
-		click_on 'Create Activity'
-		visit activity_path
-		expect(page).to have_content('Meeting')
 	end
 end
 

@@ -30,7 +30,7 @@ class LikesController < ApplicationController
     respond_to do |format|
       if @like.save
         @post_likes = Like.where(post_id: @post_id).pluck('DISTINCT member_id').count
-        Post.update(@post_id, :numlikes => @post_likes)
+        Post.update(@post_id, :likes => @post_likes)
         format.html { redirect_to @post, notice: "You have liked this post." }
         format.json { render :show, status: :created, location: @like }
       else
@@ -61,7 +61,7 @@ class LikesController < ApplicationController
     @post_id = params[:post_id]
     @like.destroy
     @post_likes = Like.where(post_id: @post_id).pluck('DISTINCT member_id').count
-    Post.update(@post_id, :numlikes => @post_likes)
+    Post.update(@post_id, :likes => @post_likes)
     respond_to do |format|
       format.html { redirect_to @post, notice: "You have un-liked this post." }
       format.json { head :no_content }

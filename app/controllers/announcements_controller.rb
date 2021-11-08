@@ -5,7 +5,11 @@ class AnnouncementsController < ApplicationController
     else
       @current_member = Member.where(uid: current_admin.uid).first()
 
-      @is_admin = @current_member.isAdmin
+      if @current_member.isAdmin == true
+        @is_admin = true
+      else
+        @is_admin = false
+      end
     end
 
     @announcements = Announcement.order('created_at DESC')

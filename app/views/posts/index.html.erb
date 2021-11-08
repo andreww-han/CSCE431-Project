@@ -24,7 +24,7 @@
             <td><%= post.body %></td>
             <% @user = Member.find(post.member_id) %>
             <td><%= @user.name %></td>
-            <td><%= post.numlikes %></td>
+            <td><%= post.likes %></td>
 
             <td><%= link_to 'Show', post %></td>
 
@@ -36,7 +36,7 @@
             <% else %>
               <td><%= link_to("Like This Post", likes_path(:like => @like, :post_id => post.id, :member_id => @member_id), method: :create) %>
             <% end %></td>
-            
+
             <% if @member_id == post.member_id %>
               <td><%= link_to 'Edit Post', edit_post_path(post) %></td>
             <% end %>
@@ -55,4 +55,3 @@
     <%= link_to 'New Post', new_post_path %>
   </div>
 </div>
-

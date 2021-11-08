@@ -22,7 +22,7 @@ class BiosController < ApplicationController
   # POST /bios or /bios.json
   def create
     @bio = Bio.new(bio_params)
-    @member = Member.find(params[:member_id])
+    @member = Member.find(params[:bio][:member_id])
 
     respond_to do |format|
       if @bio.save
@@ -37,7 +37,7 @@ class BiosController < ApplicationController
 
   # PATCH/PUT /bios/1 or /bios/1.json
   def update
-    @member = Member.find(params[:member_id])
+    @member = Member.find(params[:bio][:member_id])
     respond_to do |format|
       if @bio.update(bio_params)
         format.html { redirect_to @member, notice: "Bio was successfully updated." }

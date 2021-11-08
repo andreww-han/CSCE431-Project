@@ -10,7 +10,7 @@
           <%= link_to 'Show', @member %> |
           <%= link_to 'Back', members_path %>
       <% else %>
-        <% redirect_to members_path %>
+        <% members_controller.redirect_to members_path %>
       <% end %>
     </div>
 </div>

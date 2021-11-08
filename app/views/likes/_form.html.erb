@@ -12,9 +12,9 @@
   <% end %>
 
   <% @member = Member.find(@member_id) %>
-  <%= form.field :member_id, :value => @member.id %>
+  <%= form.hidden.field :member_id, :value => @member.id %>
   <% @post = Post.find(@post_id) %>
-  <%= form.field :post_id, :value => @post.id %>
+  <%= form.hidden.field :post_id, :value => @post.id %>
 
   <div class="actions">
     <%= form.submit %>

@@ -17,14 +17,14 @@
       <strong>Bio:</strong>
       <% @member_id = Member.where(uid: current_admin.uid).first().id %>
       <% @bio = Bio.where(member_id: @member.id) %>
-      <%if @bio.empty? && @member_id == @member.id%>
+      <% if @bio.empty? && @member_id == @member.id %>
         <%= link_to 'Add a bio', new_bio_path(@bio), :class => 'underline' %>
-      <%else%>
+      <% else %>
         <%= @bio.first().body %>
-        <%if @member_id == @member.id%>
+        <% if @member_id == @member.id %>
           <%= link_to 'Edit Bio', edit_bio_path(@bio.first()), :class => 'underline' %>
-        <%end%>
-      <%end%>
+        <% end %>
+      <% end %>
     </p>
 
     <p>
@@ -38,51 +38,51 @@
     </p>
 
     <table>
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Body</th>
-        <th>Author</th>
-        <th>Likes</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Body</th>
+          <th>Author</th>
+          <th>Likes</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
 
-  <tbody>
+      <tbody>
 
-    <% @member_id = Member.where(uid: current_admin.uid).first().id %>
-    <% Post.where(member_id: @member_id).find_each do |post| %>
+        <% @member_id = Member.where(uid: current_admin.uid).first().id %>
+        <% Post.where(member_id: @member_id).find_each do |post| %>
 
-      <tr>
-        <td><%= post.title %></td>
-        <td><%= post.body %></td>
+          <tr>
+            <td><%= post.title %></td>
+            <td><%= post.body %></td>
 
-        <% @user = Member.find(post.member_id) %>
+            <% @user = Member.find(post.member_id) %>
 
-        <td><%= @user.name %></td>
-        <td><%= post.numlikes %></td>
+            <td><%= @user.name %></td>
+            <td><%= post.numlikes %></td>
 
-        <td><%= link_to 'Show', post %></td>
+            <td><%= link_to 'Show', post %></td>
 
-        <% if(Like.exists?(:member_id => @member_id, :post_id => post.id)) %>
-          <% @like = Like.find_by(member_id: @member_id, post_id: post.id) %>
-          <td><%= link_to("Un-like This Post", delete_like_path(@like, :post_id => post.id, :member_id => @member_id), data: { confirm: 'Are you sure?' }) %></td>
-        <% else %>
-          <td><%= link_to("Like This Post", likes_path(:like => @like, :post_id => post.id, :member_id => @member_id), method: :create) %>
-        <% end %></td>
+            <% if(Like.exists?(:member_id => @member_id, :post_id => post.id)) %>
+              <% @like = Like.find_by(member_id: @member_id, post_id: post.id) %>
+              <td><%= link_to("Un-like This Post", delete_like_path(@like, :post_id => post.id, :member_id => @member_id), data: { confirm: 'Are you sure?' }) %></td>
+            <% else %>
+              <td><%= link_to("Like This Post", likes_path(:like => @like, :post_id => post.id, :member_id => @member_id), method: :create) %>
+            <% end %></td>
 
-        <% if @member_id == post.member_id %>
-          <td><%= link_to 'Edit Post', edit_post_path(post) %></td>
+            <% if @member_id == post.member_id %>
+              <td><%= link_to 'Edit Post', edit_post_path(post) %></td>
+            <% end %>
+            <% if @is_admin || @member_id == post.member_id %>
+              <td><%= link_to 'Delete Post', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+
+          </tr>
+
         <% end %>
-        <% if @is_admin || @member_id == post.member_id %>
-          <td><%= link_to 'Delete Post', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-
-      </tr>
-
-    <% end %>
-  </tbody>
-</table>
+      </tbody>
+    </table>
 
 
     <% if @is_admin or @member.uid == @current_admin.uid %>

@@ -17,9 +17,9 @@ class MembersController < ApplicationController
     end
 
     def create
+      params[:uid] = current_admin.uid
+      params[:email] = current_admin.email
       @member = Member.new(member_params)
-      Member.update(@member, :email => current_admin.email)
-      Member.update(@member, :uid => current_admin.uid)
 
       # we make sure that all fields have been filled in order to prevent any errors later on:
       unless verify(@member)

@@ -8,13 +8,10 @@ class PostsController < ApplicationController
       redirect_to(new_member_path) 
     else
       @current_member = Member.where(uid: current_admin.uid).first()
-
       @is_admin = @current_member.isAdmin
-
     end
 
     @posts = Post.order('created_at DESC')
-
   end
 
   # GET /posts/1 or /posts/1.json

@@ -6,51 +6,34 @@
     <h1>Posts</h1>
     <%= link_to("To Home Page", {:controller => 'announcements', :action=>'index'})%>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Body</th>
-          <th>Author</th>
-          <th>Likes</th>
-          <th colspan="3"></th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @posts.each do |post| %>
-          <tr>
-            <td><%= post.title %></td>
-            <td><%= post.body %></td>
-            <% @user = Member.find(post.member_id) %>
-            <td><%= @user.name %></td>
-            <td><%= post.numlikes %></td>
-
-            <td><%= link_to 'Show', post %></td>
-
-            <% @member_id = Member.where(uid: current_admin.uid).first().id %>
-
-            <% if(Like.exists?(:member_id => @member_id, :post_id => post.id)) %>
-              <% @like = Like.find_by(member_id: @member_id, post_id: post.id) %>
-              <td><%= link_to("Un-like This Post", delete_like_path(@like, :post_id => post.id, :member_id => @member_id), data: { confirm: 'Are you sure?' }) %></td>
-            <% else %>
-              <td><%= link_to("Like This Post", likes_path(:like => @like, :post_id => post.id, :member_id => @member_id), method: :create) %>
-            <% end %></td>
-            
-            <% if @member_id == post.member_id %>
-              <td><%= link_to 'Edit Post', edit_post_path(post) %></td>
-            <% end %>
-
-            <% if @is_admin || @member_id == post.member_id %>
-              <td><%= link_to 'Delete Post', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            <% end %>
-
-          </tr>
+    <% @posts.each do |post| %>
+      <div class='box'>
+        <b><%= post.title %></b>
+        <p><%= post.body %></p>
+        <p>Likes:<%= post.numlikes %></p>
+        <% @user = Member.find(post.member_id) %>
+        <p>By:<%= @user.name %></p>
+        <br>
+        <% @member_id = Member.where(uid: current_admin.uid).first().id %>
+  
+        <% if(Like.exists?(:member_id => @member_id, :post_id => post.id)) %>
+          <% @like = Like.find_by(member_id: @member_id, post_id: post.id) %>
+          <%= link_to("Un-like This Post", delete_like_path(@like, :post_id => post.id, :member_id => @member_id), data: { confirm: 'Are you sure?' }) %>
+        <% else %>
+          <%= link_to("Like This Post", likes_path(:like => @like, :post_id => post.id, :member_id => @member_id), method: :create)
         <% end %>
-      </tbody>
-    </table>
-
+        
+        <% if @member_id == post.member_id %>
+          <%= link_to 'Edit Post', edit_post_path(post) %>
+        <% end %>
+  
+        <% if @is_admin || @member_id == post.member_id %>
+          <%= link_to 'Delete Post', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+      </div>
     <br>
+    <% end %>
+
 
     <%= link_to 'New Post', new_post_path %>
   </div>

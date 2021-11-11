@@ -30,7 +30,7 @@
             <td><%= @activity.name %></td>
             <% @member_id = Member.where(uid: current_admin.uid).first().id %>
             <% if (MemberPoint.exists?(:member_id => @member_id, :event_id => event.id) == false && event.status == true) %>
-              <td><%= link_to("Join this event", member_points_path(:member_point => @memberpoint, :event_id => event.id, :member_id => @member_id, :activity_id => event.activity_id, :points => @activity.num_points), method: :create) %>
+              <td><%= link_to("Join this event", member_points_path(:member_point => @memberpoint, :event_id => event.id, :member_id => @member_id, :activity_id => event.activity_id, :points => @activity.num_points, :date => event.date), method: :create) %>
             <% end %></td>
             <td><%= link_to 'Show', event %></td>
             <% if @is_admin %>

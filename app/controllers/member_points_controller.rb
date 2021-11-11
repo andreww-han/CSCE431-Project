@@ -3,7 +3,7 @@ class MemberPointsController < ApplicationController
 
   # GET /member_points or /member_points.json
   def index
-    @member_points = MemberPoint.all
+    @member_points = MemberPoint.where(member_id: params[:member_id])
   end
 
   # GET /member_points/1 or /member_points/1.json

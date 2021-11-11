@@ -11,6 +11,7 @@
     <p>
       <strong>Points:</strong>
       <%= @member.totalPoints %>
+      <%= link_to 'View Points History', member_points_path(:member_id => @member.id), :class => 'underline' %>
     </p>
 
     <p>

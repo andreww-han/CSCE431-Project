@@ -100,6 +100,15 @@
    font-weight: 200;
  }
 
+ input[type="checkbox" i] {
+  background-color: initial;
+  cursor: default;
+  appearance: auto;
+  box-sizing: border-box;
+  padding: initial;
+  border: initial;
+}
+
  form {
    padding: 5px;
    position: relative;

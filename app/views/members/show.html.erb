@@ -39,6 +39,7 @@
       <%= @member.isOwner %>
     </p>
 
+    <% @posts = Post.where(member_id: @member.id) %> 
 
     <% @posts.each do |post| %>
       <div class='box'>

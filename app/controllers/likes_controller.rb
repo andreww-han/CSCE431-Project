@@ -26,19 +26,19 @@ class LikesController < ApplicationController
     @like = Like.new(like_params)
     @post_id = params[:post_id]
     @post = Post.find(params[:post_id])
-    
+
     respond_to do |format|
       if @like.save
         @post_likes = Like.where(post_id: @post_id).pluck('DISTINCT member_id').count
         Post.update(@post_id, :numlikes => @post_likes)
-        format.html { redirect_to @post, notice: "You have liked this post." }
+        format.html { redirect_to posts_url } # , notice: "You have liked this post." }
         format.json { render :show, status: :created, location: @like }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @like.errors, status: :unprocessable_entity }
       end
     end
-      
+
   end
 
   # PATCH/PUT /likes/1 or /likes/1.json
@@ -63,7 +63,7 @@ class LikesController < ApplicationController
     @post_likes = Like.where(post_id: @post_id).pluck('DISTINCT member_id').count
     Post.update(@post_id, :numlikes => @post_likes)
     respond_to do |format|
-      format.html { redirect_to @post, notice: "You have un-liked this post." }
+      format.html { redirect_to posts_url } # @post, notice: "You have un-liked this post." }
       format.json { head :no_content }
     end
   end

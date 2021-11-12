@@ -39,6 +39,14 @@ ActiveRecord::Schema.define(version: 2021_11_08_002048) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "bios", force: :cascade do |t|
+    t.text "body"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "member_id", null: false
+    t.index ["member_id"], name: "index_bios_on_member_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "name"
     t.date "date"
@@ -111,10 +119,11 @@ ActiveRecord::Schema.define(version: 2021_11_08_002048) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "member_id", null: false
     t.integer "likes_count", default: 0
-    t.integer "numlikes"
+    t.integer "numlikes", default: 0
     t.index ["member_id"], name: "index_posts_on_member_id"
   end
 
+  add_foreign_key "bios", "members"
   add_foreign_key "events", "activities"
   add_foreign_key "joins", "meetings"
   add_foreign_key "joins", "members"

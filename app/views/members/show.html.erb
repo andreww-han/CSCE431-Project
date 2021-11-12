@@ -3,43 +3,47 @@
   <div class='container'>
     <p id="notice"><%= notice %></p>
 
-    <p>
-      <strong>Name:</strong>
-      <%= @member.name %>
-    </p>
-
-    <p>
-      <strong>Points:</strong>
-      <%= @member.totalPoints %>
-      <%= link_to 'View Points History', member_points_path(:member_id => @member.id), :class => 'underline' %>
-    </p>
-
-    <p>
-      <strong>Bio:</strong>
-      <% @member_id = Member.where(uid: current_admin.uid).first().id %>
-      <% @bio = Bio.where(member_id: @member.id) %>
-      <% if @bio.empty? && @member_id == @member.id %>
-        <%= link_to 'Add a bio', new_bio_path(@bio), :class => 'underline' %>
-      <% else %>
-        <% if @bio.empty? == false %>
-          <%= @bio.first().body %>
+    <h2><%= @member.name %></h2>
+    <br>
+    <div class='box'>
+      <p>
+        <strong>Points:</strong>
+        <%= @member.totalPoints %>
+        <br>
+        <strong><%= link_to 'View Points History', member_points_path(:member_id => @member.id), {:style=>'color:#c24fd6;'} %></strong>
+      </p>
+      
+      <p>
+        <strong>Bio:</strong>
+        <% @member_id = Member.where(uid: current_admin.uid).first().id %>
+        <% @bio = Bio.where(member_id: @member.id) %>
+        <% if @bio.empty? && @member_id == @member.id %>
+          <strong><%= link_to 'Add a bio', new_bio_path(@bio), {:style=>'color:#c24fd6;'} %></strong>
+        <% else %>
+          <% if @bio.empty? == false %>
+            <%= @bio.first().body %>
+          <% end %>
+          <% if @member_id == @member.id %>
+            | <strong><%= link_to 'Edit Bio', edit_bio_path(@bio.first()), {:style=>'color:#c24fd6;'} %></strong>
+          <% end %>
         <% end %>
-        <% if @member_id == @member.id %>
-          <%= link_to 'Edit Bio', edit_bio_path(@bio.first()), :class => 'underline' %>
-        <% end %>
-      <% end %>
-    </p>
+      </p>
+      
+      <p>
+        <strong>Admin:</strong>
+        <%= @member.isAdmin ? 'Yes' : 'No' %>
+      </p>
 
-    <p>
-      <strong>Admin:</strong>
-      <%= @member.isAdmin %>
-    </p>
+      <p>
+        <strong>Owner:</strong>
+        <%= @member.isOwner ? 'Yes' : 'No' %>
+      </p>
+    </div>
+    <br>
+    <br>
 
-    <p>
-      <strong>Owner:</strong>
-      <%= @member.isOwner %>
-    </p>
-
+    <h2>Posts From This Member</h2>
+    <br>
     <% @posts = Post.where(member_id: @member.id) %> 
 
     <% @posts.each do |post| %>
@@ -47,33 +51,31 @@
         <b><%= post.title %></b>
         <p><%= post.body %></p>
         <p>Likes:<%= post.numlikes %></p>
-        <% @user = Member.find(post.member_id) %>
-        <p>By:<%= @user.name %></p>
         <br>
         <% @member_id = Member.where(uid: current_admin.uid).first().id %>
   
         <% if(Like.exists?(:member_id => @member_id, :post_id => post.id)) %>
           <% @like = Like.find_by(member_id: @member_id, post_id: post.id) %>
-          <%= link_to("Un-like This Post", delete_like_path(@like, :post_id => post.id, :member_id => @member_id), data: { confirm: 'Are you sure?' }) %>
+          <%= link_to("Un-like", delete_like_path(@like, :post_id => post.id, :member_id => @member_id),  :class => 'underline')%>
         <% else %>
-          <%= link_to("Like This Post", likes_path(:like => @like, :post_id => post.id, :member_id => @member_id), method: :create) %>
+          <%= link_to("Like", likes_path(:like => @like, :post_id => post.id, :member_id => @member_id), method: :create,  :class => 'underline') %>
         <% end %>
         
         <% if @member_id == post.member_id %>
-          <%= link_to 'Edit Post', edit_post_path(post) %>
+          <%= link_to 'Edit Post', edit_post_path(post), :class => 'underline' %>
         <% end %>
   
         <% if @is_admin || @member_id == post.member_id %>
-          <%= link_to 'Delete Post', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to 'Delete Post', post, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'underline' %>
         <% end %>
       </div>
     <br>
     <% end %>
-
-
+    
     <% if @is_admin or @member.uid == current_admin.uid %>
-      <%= link_to 'Edit', edit_member_path(@member) %> |
+      <%= link_to 'Edit', edit_member_path(@member), :class => 'underline' %> |
     <% end %>
-    <%= link_to 'Back', members_path %>
+    <%= link_to 'Back', members_path, :class => 'underline'%>
+
   </div>
 </div>

@@ -2,15 +2,15 @@
   <%= render(:partial => 'navbar', :locals => {:is_logged_in => true}) %>
   <div class='container'>
     <p id="notice"><%= notice %></p>
-
     <h1>Posts</h1>
-    <%= link_to("To Home Page", {:controller => 'announcements', :action=>'index'})%>
-
+    <%= link_to 'New Post', new_post_path, :class => 'underline' %>
+    <br><br>
     <% @posts.each do |post| %>
       <div class='box'>
         <b><%= post.title %></b>
         <p><%= post.body %></p>
-        <p>Likes:<%= post.numlikes %></p>
+        <br>
+        <p style="display:inline">Likes: <%= post.numlikes %></p><br>
         <% @user = Member.find(post.member_id) %>
         <p>By:<%= @user.name %></p>
         <br>
@@ -18,9 +18,9 @@
   
         <% if(Like.exists?(:member_id => @member_id, :post_id => post.id)) %>
           <% @like = Like.find_by(member_id: @member_id, post_id: post.id) %>
-          <%= link_to("Un-like This Post", delete_like_path(@like, :post_id => post.id, :member_id => @member_id), data: { confirm: 'Are you sure?' }) %>
+          <%= link_to("Un-like", delete_like_path(@like, :post_id => post.id, :member_id => @member_id), :class => 'underline') %>
         <% else %>
-          <%= link_to("Like This Post", likes_path(:like => @like, :post_id => post.id, :member_id => @member_id), method: :create) %>
+          <%= link_to("Like", likes_path(:like => @like, :post_id => post.id, :member_id => @member_id), method: :create, :class => 'underline') %>
         <% end %>
         
         <% if @member_id == post.member_id %>
@@ -28,14 +28,11 @@
         <% end %>
   
         <% if @is_admin || @member_id == post.member_id %>
-          <%= link_to 'Delete Post', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to 'Delete Post', post, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'underline' %>
         <% end %>
       </div>
     <br>
     <% end %>
 
-
-    <%= link_to 'New Post', new_post_path %>
   </div>
 </div>
-

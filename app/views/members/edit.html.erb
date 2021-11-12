@@ -11,6 +11,7 @@
           <%= link_to 'Back', members_path %>
       <% else %>
         <% members_controller.redirect_to members_path %>
+        <% redirect_to members_path %>
       <% end %>
     </div>
 </div>

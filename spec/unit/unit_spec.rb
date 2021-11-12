@@ -99,4 +99,3 @@ end
 #		subject.title = nil
 #		expect(subject).not_to be_valid
 #	end
-#end

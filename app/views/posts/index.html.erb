@@ -3,6 +3,7 @@
   <div class='container'>
     <p id="notice"><%= notice %></p>
     <h1>Posts</h1>
+    
     <%= link_to 'New Post', new_post_path, :class => 'underline' %>
     <br><br>
     <% @posts.each do |post| %>
@@ -20,6 +21,7 @@
           <% @like = Like.find_by(member_id: @member_id, post_id: post.id) %>
           <%= link_to("Un-like", delete_like_path(@like, :post_id => post.id, :member_id => @member_id), :class => 'underline') %>
         <% else %>
+
           <%= link_to("Like", likes_path(:like => @like, :post_id => post.id, :member_id => @member_id), method: :create, :class => 'underline') %>
         <% end %>
         

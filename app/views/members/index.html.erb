@@ -6,11 +6,11 @@
     <table>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Points</th>
-          <th>Email</th>
-          <th>Admin?</th>
-          <th>Owner?</th>
+          <th><%= sortable "name" %> </th>
+          <th><%= sortable 'members."totalPoints"', "Points" %> </th>
+          <th><%= sortable "email" %> </th>
+          <th><%= sortable 'members."isAdmin"', "Admin" %> </th>
+          <th><%= sortable 'members."isOwner"', "Owner" %> </th>
           <th colspan="3"></th>
         </tr>
       </thead>

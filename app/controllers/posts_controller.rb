@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     if Member.exists?(uid: current_admin.uid) == false
-      redirect_to(new_member_path) 
+      redirect_to(new_member_path)
     else
       @current_member = Member.where(uid: current_admin.uid).first()
       @is_admin = @current_member.isAdmin
@@ -31,9 +31,14 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
 
+    unless verify
+      redirect_to(posts_url, notice: "Post must have title and body.")
+      return
+    end
+
     respond_to do |format|
       if @post.save
-        format.html { redirect_to @post, notice: "Post was successfully created." }
+        format.html { redirect_to posts_url, notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -46,7 +51,7 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to @post, notice: "Post was successfully updated." }
+        format.html { redirect_to posts_url, notice: "Post was successfully updated." }
         format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -59,9 +64,13 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
+      format.html { redirect_to posts_url, notice: "Post was successfully deleted." }
       format.json { head :no_content }
     end
+  end
+
+  def verify
+    return (!@post.title.empty? and !@post.body.empty?)
   end
 
   private

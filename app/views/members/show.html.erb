@@ -4,13 +4,19 @@
     <p id="notice"><%= notice %></p>
 
     <h2><%= @member.name %></h2>
-    <br>
+    <% if @is_admin or @member.uid == current_admin.uid %>
+
+      <%= link_to 'Edit', edit_member_path(@member), :class => 'underline' %> |
+    <% end %>
+    <%= link_to 'Back', members_path, :class => 'underline'%>
+    <br><br>
+
     <div class='box'>
       <p>
         <strong>Points:</strong>
         <%= @member.totalPoints %>
       </p>
-      
+
       <p>
         <strong>Bio:</strong>
         <% @member_id = Member.where(uid: current_admin.uid).first().id %>
@@ -23,7 +29,7 @@
           <% end %>
         <% end %>
       </p>
-      
+
       <p>
         <strong>Admin:</strong>
         <%= @member.isAdmin ? 'Yes' : 'No' %>
@@ -34,50 +40,45 @@
         <%= @member.isOwner ? 'Yes' : 'No' %>
       </p>
 
+      <br>
       <%= link_to 'View Points History', member_points_path(:member_id => @member.id), :class => 'underline' %>
       <% if @member_id == @member.id && @bio.empty? == false %>
             <%= link_to '| Edit Bio', edit_bio_path(@bio.first()), :class => 'underline'%>
       <% end %>
-  
+
     </div>
     <br>
     <br>
 
-    <h2>Posts From This Member</h2>
+    <h2><%= @member.name %>'s Posts</h2>
     <br>
-    <% @posts = Post.where(member_id: @member.id) %> 
+    <% @posts = Post.where(member_id: @member.id) %>
 
     <% @posts.each do |post| %>
       <div class='box'>
         <b><%= post.title %></b>
         <p><%= post.body %></p>
-        <p>Likes:<%= post.numlikes %></p>
+        <p>Likes: <%= post.numlikes %></p>
         <br>
         <% @member_id = Member.where(uid: current_admin.uid).first().id %>
-  
+
         <% if(Like.exists?(:member_id => @member_id, :post_id => post.id)) %>
           <% @like = Like.find_by(member_id: @member_id, post_id: post.id) %>
           <%= link_to("Un-like", delete_like_path(@like, :post_id => post.id, :member_id => @member_id),  :class => 'underline')%>
         <% else %>
           <%= link_to("Like", likes_path(:like => @like, :post_id => post.id, :member_id => @member_id), method: :create,  :class => 'underline') %>
         <% end %>
-        
+
         <% if @member_id == post.member_id %>
-          <%= link_to 'Edit Post', edit_post_path(post), :class => 'underline' %>
+          <%= link_to 'Edit', edit_post_path(post), :class => 'underline' %>
         <% end %>
-  
+
         <% if @is_admin || @member_id == post.member_id %>
-          <%= link_to 'Delete Post', post, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'underline' %>
+          <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'underline' %>
         <% end %>
       </div>
     <br>
     <% end %>
-    
-    <% if @is_admin or @member.uid == current_admin.uid %>
-
-      <%= link_to 'Edit', edit_member_path(@member), :class => 'underline' %> |
-    <% end %>
-    <%= link_to 'Back', members_path, :class => 'underline'%>
 
   </div>
 </div>

@@ -3,20 +3,19 @@
   <div class='container'>
     <p id="notice"><%= notice %></p>
     <h1>Posts</h1>
-    
+
     <%= link_to 'New Post', new_post_path, :class => 'underline' %>
     <br><br>
     <% @posts.each do |post| %>
       <div class='box'>
         <b><%= post.title %></b>
+        <% @user = Member.find(post.member_id) %>
+        <p>By <%= @user.name %></p>
         <p><%= post.body %></p>
         <br>
         <p style="display:inline">Likes: <%= post.numlikes %></p><br>
-        <% @user = Member.find(post.member_id) %>
-        <p>By:<%= @user.name %></p>
-        <br>
         <% @member_id = Member.where(uid: current_admin.uid).first().id %>
-  
+
         <% if(Like.exists?(:member_id => @member_id, :post_id => post.id)) %>
           <% @like = Like.find_by(member_id: @member_id, post_id: post.id) %>
           <%= link_to("Un-like", delete_like_path(@like, :post_id => post.id, :member_id => @member_id), :class => 'underline') %>
@@ -24,13 +23,13 @@
 
           <%= link_to("Like", likes_path(:like => @like, :post_id => post.id, :member_id => @member_id), method: :create, :class => 'underline') %>
         <% end %>
-        
+
         <% if @member_id == post.member_id %>
-          <%= link_to 'Edit Post', edit_post_path(post) %>
+          <%= link_to 'Edit', edit_post_path(post), :class => 'underline' %>
         <% end %>
-  
+
         <% if @is_admin || @member_id == post.member_id %>
-          <%= link_to 'Delete Post', post, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'underline' %>
+          <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'underline' %>
         <% end %>
       </div>
     <br>

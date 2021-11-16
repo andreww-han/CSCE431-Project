@@ -1,5 +1,5 @@
 class LikesController < ApplicationController
-  before_action :set_like, only: %i[ show edit update destroy ]
+  before_action :set_like, only: %i[show edit update destroy]
 
   # GET /likes or /likes.json
   def index
@@ -7,8 +7,7 @@ class LikesController < ApplicationController
   end
 
   # GET /likes/1 or /likes/1.json
-  def show
-  end
+  def show; end
 
   # GET /likes/new
   def new
@@ -18,8 +17,7 @@ class LikesController < ApplicationController
   end
 
   # GET /likes/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /likes or /likes.json
   def create
@@ -30,7 +28,7 @@ class LikesController < ApplicationController
     respond_to do |format|
       if @like.save
         @post_likes = Like.where(post_id: @post_id).pluck('DISTINCT member_id').count
-        Post.update(@post_id, :numlikes => @post_likes)
+        Post.update(@post_id, numlikes: @post_likes)
         format.html { redirect_to posts_url } # , notice: "You have liked this post." }
         format.json { render :show, status: :created, location: @like }
       else
@@ -38,14 +36,13 @@ class LikesController < ApplicationController
         format.json { render json: @like.errors, status: :unprocessable_entity }
       end
     end
-
   end
 
   # PATCH/PUT /likes/1 or /likes/1.json
   def update
     respond_to do |format|
       if @like.update(like_params)
-        format.html { redirect_to @like, notice: "Like was successfully updated." }
+        format.html { redirect_to @like, notice: 'Like was successfully updated.' }
         format.json { render :show, status: :ok, location: @like }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -61,7 +58,7 @@ class LikesController < ApplicationController
     @post_id = params[:post_id]
     @like.destroy
     @post_likes = Like.where(post_id: @post_id).pluck('DISTINCT member_id').count
-    Post.update(@post_id, :numlikes => @post_likes)
+    Post.update(@post_id, numlikes: @post_likes)
     respond_to do |format|
       format.html { redirect_to posts_url } # @post, notice: "You have un-liked this post." }
       format.json { head :no_content }
@@ -69,14 +66,15 @@ class LikesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_like
-      @like = Like.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def like_params
-      # params.fetch(:like, {:meeting_id, :member_id})
-      params.permit(:post_id, :member_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_like
+    @like = Like.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def like_params
+    # params.fetch(:like, {:meeting_id, :member_id})
+    params.permit(:post_id, :member_id)
+  end
 end

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  
   resources :member_points
   resources :activities
   resources :posts
@@ -12,14 +11,14 @@ Rails.application.routes.draw do
   end
 
   resources :logins
-  #root to: 'dashboards#show'
-  #will automatically redirect users to the sign in page upon entering the website
+  # root to: 'dashboards#show'
+  # will automatically redirect users to the sign in page upon entering the website
   root to: 'announcements#index'
   devise_for :admins, controllers: { omniauth_callbacks: 'admins/omniauth_callbacks' }
   devise_scope :admin do
     get 'admins/sign_in', to: 'admins/sessions#new', as: :new_admin_session
     get 'admins/sign_out', to: 'admins/sessions#destroy', as: :destroy_admin_session
-  end  
+  end
   # temporarily set the announcements page as home, for convenience
   # the google oauth tutorial had me set a different root idk how were going to do this
 

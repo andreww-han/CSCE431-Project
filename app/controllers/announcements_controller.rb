@@ -3,16 +3,14 @@ class AnnouncementsController < ApplicationController
     if Member.exists?(uid: current_admin.uid) == false
       redirect_to(new_member_path)
     else
-      @current_member = Member.where(uid: current_admin.uid).first()
+      @current_member = Member.where(uid: current_admin.uid).first
 
       @is_admin = @current_member.isAdmin
     end
 
     @announcements = Announcement.order('created_at DESC')
 
-    if @is_admin
-      @announcement = Announcement.new
-    end
+    @announcement = Announcement.new if @is_admin
   end
 
   def new
@@ -30,7 +28,7 @@ class AnnouncementsController < ApplicationController
     end
 
     if @announcement.save
-      @current_member = Member.where(uid: current_admin.uid).first()
+      @current_member = Member.where(uid: current_admin.uid).first
       AnnouncementMailer.with(member: @current_member, announcement: @announcement).announcement_created.deliver_later
       @flash_notice = 'announcement added successfully.'
       redirect_to(announcements_path, notice: @flash_notice)
@@ -75,9 +73,9 @@ class AnnouncementsController < ApplicationController
 
   def verify(announcement)
     if announcement.title.empty? or announcement.message.empty?
-      return false
+      false
     else
-      return true
+      true
     end
   end
 end

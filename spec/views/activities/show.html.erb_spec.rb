@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe "activities/show", type: :view do
+RSpec.describe 'activities/show', type: :view do
   before(:each) do
     @activity = assign(:activity, Activity.create!(
-      name: "Name",
-      num_points: 2
-    ))
+                                    name: 'Name',
+                                    num_points: 2
+                                  ))
   end
 
-  it "renders attributes in <p>" do
+  it 'renders attributes in <p>' do
     render
     expect(rendered).to match(/Name/)
     expect(rendered).to match(/2/)

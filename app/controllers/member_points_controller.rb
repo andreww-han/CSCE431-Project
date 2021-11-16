@@ -1,5 +1,5 @@
 class MemberPointsController < ApplicationController
-  before_action :set_member_point, only: %i[ show edit update destroy ]
+  before_action :set_member_point, only: %i[show edit update destroy]
 
   # GET /member_points or /member_points.json
   def index
@@ -7,8 +7,7 @@ class MemberPointsController < ApplicationController
   end
 
   # GET /member_points/1 or /member_points/1.json
-  def show
-  end
+  def show; end
 
   # GET /member_points/new
   def new
@@ -16,8 +15,7 @@ class MemberPointsController < ApplicationController
   end
 
   # GET /member_points/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /member_points or /member_points.json
   def create
@@ -31,8 +29,8 @@ class MemberPointsController < ApplicationController
 
     respond_to do |format|
       if @member_point.save
-        Member.update(@member_id, :totalPoints => @new_points)
-        format.html { redirect_to @event, notice: "You have checked into this event." }
+        Member.update(@member_id, totalPoints: @new_points)
+        format.html { redirect_to @event, notice: 'You have checked into this event.' }
         format.json { render :show, status: :created, location: @member_point }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -45,7 +43,7 @@ class MemberPointsController < ApplicationController
   def update
     respond_to do |format|
       if @member_point.update(member_point_params)
-        format.html { redirect_to @event, notice: "Member point was successfully updated." }
+        format.html { redirect_to @event, notice: 'Member point was successfully updated.' }
         format.json { render :show, status: :ok, location: @member_point }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -58,19 +56,20 @@ class MemberPointsController < ApplicationController
   def destroy
     @member_point.destroy
     respond_to do |format|
-      format.html { redirect_to member_points_url, notice: "Member point was successfully destroyed." }
+      format.html { redirect_to member_points_url, notice: 'Member point was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_member_point
-      @member_point = MemberPoint.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def member_point_params
-      params.permit(:date, :points, :event_id, :member_id, :activity_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_member_point
+    @member_point = MemberPoint.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def member_point_params
+    params.permit(:date, :points, :event_id, :member_id, :activity_id)
+  end
 end

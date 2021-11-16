@@ -1,5 +1,4 @@
 class JoinsController < ApplicationController
-
   def new
     @meeting_id = params[:meeting_id]
     @member_id = params[:member_id]
@@ -11,8 +10,6 @@ class JoinsController < ApplicationController
     @join.save
     redirect_to(meetings_path)
   end
-
-
 
   private def join_params
     params.require(:join).permit(:meeting_id, :member_id)

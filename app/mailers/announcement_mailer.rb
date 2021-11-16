@@ -1,5 +1,4 @@
 class AnnouncementMailer < ApplicationMailer
-
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -8,7 +7,7 @@ class AnnouncementMailer < ApplicationMailer
   def announcement_created
     @member = params[:member]
     @announcement = params[:announcement]
-    @greeting = "Hi"
+    @greeting = 'Hi'
 
     mail(
       bcc: Member.all.pluck(:email),

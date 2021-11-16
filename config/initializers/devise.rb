@@ -9,11 +9,9 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
-  config.omniauth :google_oauth2, ENV['GOOGLE_OAUTH_CLIENT_ID'] = '455948073583-9llct8taj49p9n3on25227i5pqlnr9d3.apps.googleusercontent.com', ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = '6fkYAToFVFh1ZZKTFbqMJgdB'
-OmniAuth.config.allowed_request_methods = %i[get]
-
-
-
+  config.omniauth :google_oauth2,
+                  ENV['GOOGLE_OAUTH_CLIENT_ID'] = '455948073583-9llct8taj49p9n3on25227i5pqlnr9d3.apps.googleusercontent.com', ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = '6fkYAToFVFh1ZZKTFbqMJgdB'
+  OmniAuth.config.allowed_request_methods = %i[get]
 
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing

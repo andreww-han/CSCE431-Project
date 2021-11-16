@@ -1,0 +1,66 @@
+<div class='wrapper'>
+  <%= render(:partial => 'navbar', :locals => {:is_logged_in => true}) %>
+  <div class='container'>
+    <h1>Help Page</h1>
+    <br>
+
+    <% @member = Member.where(uid: current_admin.uid).first() %>
+    <% if @member.isAdmin %>
+      <h2>Guide for Admins</h2>
+      <h3>This Portion is Only Visible to Admins</h3><br>
+
+      <h2>Announcements Page</h2>
+      <%= image_tag("announcements.jpg") %>
+      <p>As an admin, you have the ability to post, edit, and delete announcements on this page. Any time an announcement gets posted, an email will be sent out to all members. </p> <br>
+
+      <h2>Members Page</h2>
+      <%= image_tag("members.jpg") %>
+      <p>Admins have the ability to edit and delete any member within the organization. </p>
+      <%= image_tag("member_edit.jpg") %>
+      <p>This is the form to edit members as an admin. You can make adjustments to the user's display name and attendance points if needed. Note: Only the site owner can make changes to admin privileges. </p><br>
+
+      <h2>Creating Events</h2>
+      <p>Every event that is created will need to have an activity type associated with it. Activites can be created by admins by clicking the "Activities" tab on the navigation bar. </p>
+      <%= image_tag("activities.jpg") %>
+      <p>To create an activity type, click "New Activity" to access the form. On the form, you will need to enter a name for the activity type as well as the amount of points awarded for attending this type of activity. </p>
+      <%= image_tag("new_activity.jpg") %>
+      <p>Once the activity type is created, you can navigate to the events page and create an event that members can join. If the "Active" box is checked, members will be able to join the event and gain attendance points. The "Activity" field is a dropdown box that contains all the activity types you have created.</p> <br>
+
+      <h2>Posts Page</h2>
+      <p>Admins do not have access to edit posts of other members. However, admins can delete posts they deem inappropriate. Simply click "Delete" on a post and confirm on the pop-up box.</p>
+      <%= image_tag("delete_post.jpg") %> <br> <br> 
+
+    <% end %>
+    
+    <h2>User Guide</h2>
+    <h3>This page will be a guide on how to navigate and utilize this website.</h3> <br>
+
+    <h2>Announcements Page</h2>
+    <p>The announcement page will contain all the announcements created by the organization admins. Each time an announcement is posted, you will get an email to your @tamu.edu address that you used to sign into the website. </p>
+    <%= image_tag("announcements_user.jpg") %> <br>
+
+    <h2>Members Page</h2>
+    <p>On the members page, you can view a list of all the members in your organization. This page will display attendance points and also have links to edit your profile. If you click the "Edit" link, you can adjust your display name on the website. If you click on "View Bio", you will be taken to the member's personal bio page. </p>
+    <%= image_tag("members_user.jpg") %> <br>
+    <p>The bio page will display the respective member's information including a personal bio that they can write. If you are on your own member page, there will be links to add a bio or edit your existing bio. Each personal member page will also display every posts created by that user. </p>
+    <%= image_tag("bio.jpg") %> <br>
+    <p>Clicking on "View Points History" will display a list of the events the member attended and how many points they got awarded for attending.</p> <br>
+
+
+    <h2>Events Page</h2>
+    <p>In order to gain attendance points, you wil need to join events that are active. Navigate to the events page to view all the events for your organization. If an event is set to active, you will see a link to "Join this event". </p>
+    <%= image_tag("events_user.jpg") %> <br>
+    <p>Once you join an event, you will be added to the attendee list and be awarded attendance points.</p>
+    <%= image_tag("join_event.jpg") %> <br>
+
+    
+    <h2>Posts Page</h2>
+    <p>The posts page will be where you can interact with your fellow members and see their accomplishments. There will be an option to like/un-like every post as well. If needed, you can edit your own posts if you need to change something. </p>
+    <%= image_tag("posts.jpg") %> <br>
+
+
+    <br>
+
+  </div>
+</div>
+
